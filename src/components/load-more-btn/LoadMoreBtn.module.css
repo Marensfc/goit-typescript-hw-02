@@ -1,0 +1,17 @@
+.btn {
+  font-size: 25px;
+  width: 200px;
+  height: 40px;
+  font-weight: 500;
+  color: white;
+  background-color: #4e75ff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 100px;
+  transition: background-color 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.btn:hover {
+  background-color: #325efc;
+}

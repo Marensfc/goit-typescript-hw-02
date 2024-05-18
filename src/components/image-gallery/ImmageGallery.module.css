@@ -1,0 +1,22 @@
+.gallery {
+  max-width: 1400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.galleryLi {
+  width: calc((100% - 30px) / 4);
+  border: 1px solid #808080;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1400px) {
+  .galleryLi {
+    width: calc((100% - 30px) / 3);
+    border: 1px solid #808080;
+    overflow: hidden;
+  }
+}
