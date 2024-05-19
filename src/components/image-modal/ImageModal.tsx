@@ -1,9 +1,20 @@
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
+import { FC } from "react";
 
 Modal.setAppElement("#root");
 
-const ImageModal = ({ modalIsOpen, closeModal, selectedImg }) => {
+type ImageModalProps = {
+  modalIsOpen: boolean;
+  closeModal: () => void;
+  selectedImg: HTMLImageElement;
+};
+
+const ImageModal: FC<ImageModalProps> = ({
+  modalIsOpen,
+  closeModal,
+  selectedImg,
+}) => {
   if (modalIsOpen) {
     document.body.style.overflow = "hidden";
   } else {

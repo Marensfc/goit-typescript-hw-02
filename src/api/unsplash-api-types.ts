@@ -33,7 +33,7 @@ export type Image = {
   tags: object[];
   topic_submissions: object;
   updated_at: string;
-  urls: object;
+  urls: { regular: string; small: string };
   user: Object;
   width: number;
 };

@@ -1,8 +1,20 @@
 import css from "./ImmageGallery.module.css";
 
 import ImageCard from "../image-card/ImageCard";
+import { Image } from "../../api/unsplash-api-types";
+import { FC } from "react";
 
-const ImmageGallery = ({ images, setSelectedImg, openModal }) => {
+type ImageGalleryProps = {
+  images: Image[];
+  setSelectedImg: (selectedImg: HTMLImageElement) => void;
+  openModal: () => void;
+};
+
+const ImmageGallery: FC<ImageGalleryProps> = ({
+  images,
+  setSelectedImg,
+  openModal,
+}) => {
   return (
     <ul className={css.gallery}>
       {images.map(image => {

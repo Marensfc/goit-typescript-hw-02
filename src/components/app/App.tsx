@@ -17,7 +17,9 @@ function App() {
   const [images, setImages] = useState<Image[]>([]);
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(0);
-  const [selectedImg, setSelectedImg] = useState(undefined);
+  const [selectedImg, setSelectedImg] = useState<HTMLImageElement | undefined>(
+    undefined
+  );
   const [showBtn, setShowBtn] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);

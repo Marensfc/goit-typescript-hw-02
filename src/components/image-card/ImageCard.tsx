@@ -1,6 +1,17 @@
 import css from "./ImageCard.module.css";
 
-const ImageCard = ({
+import { FC, MouseEvent } from "react";
+
+type ImageCardProps = {
+  smallImg: string;
+  altDescription: string;
+  regularImg: string;
+  id: string;
+  openModal: () => void;
+  setSelectedImg: (selectedImg: HTMLImageElement) => void;
+};
+
+const ImageCard: FC<ImageCardProps> = ({
   smallImg,
   altDescription,
   regularImg,
@@ -8,8 +19,8 @@ const ImageCard = ({
   setSelectedImg,
   openModal,
 }) => {
-  const handleOnClick = evt => {
-    const selectedImg = evt.target;
+  const handleOnClick = (evt: MouseEvent<HTMLImageElement>): void => {
+    const selectedImg: HTMLImageElement = evt.target as HTMLImageElement;
     setSelectedImg(selectedImg);
     openModal();
   };
