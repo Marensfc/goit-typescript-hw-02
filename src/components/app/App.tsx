@@ -1,6 +1,6 @@
 import css from "./App.module.css";
 import { fetchPhotosByQuery } from "../../api/unsplash-api";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, FormEvent } from "react";
 import { useModal } from "../../utils/hooks/UseModal";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -11,23 +11,27 @@ import ImageModal from "../image-modal/ImageModal";
 import ErrorMessage from "../error-message/ErrorMessage";
 import Loader from "../loader/Loader";
 
+import { ResponseData, Image } from "../../api/unsplash-api-types";
+
 function App() {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(0);
+  const [images, setImages] = useState<Image[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(0);
   const [selectedImg, setSelectedImg] = useState(undefined);
-  const [showBtn, setShowBtn] = useState(false);
-  const [loader, setLoader] = useState(false);
-  const [error, setError] = useState(false);
+  const [showBtn, setShowBtn] = useState<boolean>(false);
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const { modalIsOpen, openModal, closeModal } = useModal();
 
-  const totalPagesRef = useRef(0);
+  const totalPagesRef = useRef<number>(0);
 
-  const handleOnSubmit = evt => {
+  const handleOnSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
 
-    const form = evt.target;
-    const searchValue = form.elements.search.value.trim();
+    const form = evt.target as HTMLFormElement;
+    const searchValue: string = (
+      form.elements.namedItem("search") as HTMLInputElement
+    ).value.trim();
 
     if (searchValue === "") {
       alert("Please enter the text in the field");
@@ -39,18 +43,21 @@ function App() {
     form.reset();
   };
 
-  const addPage = () => {
+  const addPage = (): void => {
     setPage(page + 1);
   };
 
   useEffect(() => {
     if (!query) return;
 
-    async function load() {
+    async function load(): Promise<ResponseData | undefined> {
       setLoader(true);
       try {
         setShowBtn(false);
-        const data = await fetchPhotosByQuery(query, page);
+        const data: ResponseData = await fetchPhotosByQuery<ResponseData>(
+          query,
+          page
+        );
 
         if (data.total_pages === 0) {
           setShowBtn(false);
@@ -68,12 +75,12 @@ function App() {
           return;
         }
 
-        let imagesCollection = [...images, data.results].flat(1);
+        let imagesCollection: Image[] = [...images, data.results].flat(1);
         setImages(imagesCollection);
         totalPagesRef.current -= 1;
         setShowBtn(totalPagesRef.current !== 0);
         setError(false);
-      } catch (error) {
+      } catch (error: unknown) {
         setError(true);
         setShowBtn(false);
       } finally {

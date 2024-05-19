@@ -1,6 +1,11 @@
+import { FormEvent } from "react";
 import css from "./SearchBar.module.css";
 
-const SearchBar = ({ handleOnSubmit }) => {
+type SearchBarProps = {
+  handleOnSubmit: (e: FormEvent<HTMLFormElement>) => void;
+};
+
+const SearchBar: React.FC<SearchBarProps> = ({ handleOnSubmit }) => {
   return (
     <header className={css.header}>
       <form onSubmit={handleOnSubmit} className={css.form}>
